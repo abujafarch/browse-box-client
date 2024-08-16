@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 
 
-const FilterSection = () => {
+const FilterSection = ({ filterOpen, setFilterOpen }) => {
 
     const [priceRangeOk, setPriceRangeOk] = useState(true)
+
     const maxPrice = useRef()
     const minPrice = useRef()
     console.log(priceRangeOk)
@@ -26,7 +27,12 @@ const FilterSection = () => {
 
 
     return (
-        <div className="md:min-w-[250px] md:max-w-[250px] md:p-0 text-black space-y-5 md:block fixed left-0 bottom-0 bg-white w-full p-5 hidden">
+        <div className={`min-w-[250px] max-w-[250px] md:h-auto h-screen md:overflow-y-hidden overflow-y-scroll md:p-0 text-black space-y-5 md:bg-white bg-[#ebebeb] p-5 md:block md:static fixed md:rounded-none md:border-none border-t rounded-md ${filterOpen ? 'right-0 top-0' : '-right-[260px] top-0'} transition-all ease-in-out duration-300`}>
+
+            <div className="flex justify-end">
+                <button onClick={() => setFilterOpen(false)} className={`font-inter font-semibold bg-[#E8788C] text-white rounded-sm px-3 py-1 md:hidden`}>Close</button>
+            </div>
+
             {/* BRANDS SORTING HERE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">BRANDS</h3>
@@ -66,6 +72,7 @@ const FilterSection = () => {
                     </div>
                 </div>
             </div>
+            {/* jodi karo vercel a deploy nia problem face koren tara module 61.(9-11) dekhte paro */}
 
             {/* PRICE RANGE SORTING HERE */}
             <form onChange={priceRangeCheck} >
@@ -86,7 +93,7 @@ const FilterSection = () => {
                 </div>
 
                 <div className="mt-5">
-                    <button disabled={!priceRangeOk} className={`w-full rounded-sm py-2 text-white text-lg ${priceRangeOk? "bg-[#E8788C]" :"bg-gray-500 cursor-not-allowed"}`}>Search</button>
+                    <button disabled={!priceRangeOk} className={`w-full rounded-sm py-2 text-white text-lg ${priceRangeOk ? "bg-[#E8788C]" : "bg-gray-500 cursor-not-allowed"}`}>Search</button>
                 </div>
             </form>
 
