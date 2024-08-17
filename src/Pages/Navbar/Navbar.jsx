@@ -1,11 +1,26 @@
+import { useContext } from "react";
 import { RiMenuFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Navbar = () => {
 
+    const { user, logout } = useContext(AuthContext)
+    const handleLogout = (e) => {
+        e.preventDefault()
+        logout()
+    }
+
     const links = <>
-        <Link to='/register' className="bg-[#E8788C] text-white py-1 px-3 rounded-sm" >Register</Link>
-        <Link to='/login' className="bg-[#E8788C] text-white py-1 px-3 rounded-sm" >Login</Link>
+        {
+            !user && <>
+                <Link to='/register' className="bg-[#E8788C] text-white py-1 px-3 rounded-sm" >Register</Link>
+                <Link to='/login' className="bg-[#E8788C] text-white py-1 px-3 rounded-sm" >Login</Link>
+            </>
+        }
+        {
+            user && <button onClick={handleLogout} className="bg-[#E8788C] py-1 px-3 rounded-sm text-white">Logout</button>
+        }
     </>
     return (
         <div className="w-full flex justify-center">
