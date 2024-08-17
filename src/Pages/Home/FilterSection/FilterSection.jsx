@@ -39,15 +39,6 @@ const FilterSection = ({ filterOpen, setFilterOpen, setBrandName, setCategoryNam
     }, [])
 
     const brandHandle = (e) => {
-        // const checkValue = e.target.value
-        // const isChecked = e.target.checked
-        // if (isChecked) {
-        //     setBrandArray([...brandArray, checkValue])
-        // }
-        // else {
-        //     const newBrandArray = brandArray.filter(brand => brand !== checkValue)
-        //     setBrandArray(newBrandArray)
-        // }
         console.log(e.target.value)
         setBrandName(e.target.value)
     }
