@@ -2,12 +2,21 @@ import { Link } from "react-router-dom";
 import FilterSection from "./FilterSection/FilterSection";
 import { IoSearch } from "react-icons/io5";
 import ProductSection from "./ProductSection/ProductSection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Home = () => {
 
     const [filterOpen, setFilterOpen] = useState(false)
+    const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:5000/all-products')
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data)
+            })
+    }, [])
 
 
 
@@ -21,7 +30,7 @@ const Home = () => {
 
             <div className="flex gap-5">
                 <FilterSection setFilterOpen={setFilterOpen} filterOpen={filterOpen} />
-                <ProductSection setFilterOpen={setFilterOpen} filterOpen={filterOpen} />
+                <ProductSection setFilterOpen={setFilterOpen} filterOpen={filterOpen} products={products} />
             </div>
         </div>
     );

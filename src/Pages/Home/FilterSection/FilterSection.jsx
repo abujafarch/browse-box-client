@@ -6,8 +6,8 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
     const [priceRangeOk, setPriceRangeOk] = useState(true)
     const [brands, setBrands] = useState([])
     const [category, setCategory] = useState([])
-    const [brandArray, setBrandArray] = useState([])
-    const [categoryArray, setCategoryArray] = useState([])
+    // const [brandArray, setBrandArray] = useState([])
+    // const [categoryArray, setCategoryArray] = useState([])
 
     const maxPrice = useRef()
     const minPrice = useRef()
@@ -39,32 +39,51 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
     }, [])
 
     const brandHandle = (e) => {
-        const checkValue = e.target.value
-        const isChecked = e.target.checked
-        if (isChecked) {
-            setBrandArray([...brandArray, checkValue])
-        }
-        else {
-            const newBrandArray = brandArray.filter(brand => brand !== checkValue)
-            setBrandArray(newBrandArray)
-        }
+        // const checkValue = e.target.value
+        // const isChecked = e.target.checked
+        // if (isChecked) {
+        //     setBrandArray([...brandArray, checkValue])
+        // }
+        // else {
+        //     const newBrandArray = brandArray.filter(brand => brand !== checkValue)
+        //     setBrandArray(newBrandArray)
+        // }
+
+        console.log(e.target.value)
     }
-    console.log(brandArray)
 
     const categoryHandle = (e) => {
-        const checkValue = e.target.value
-        const isChecked = e.target.checked
+        // const checkValue = e.target.value
+        // const isChecked = e.target.checked
 
-        if (isChecked) {
-            setCategoryArray([...categoryArray, checkValue])
-        }
-        else {
-            const newCategoryArray = categoryArray.filter(item => item !== checkValue)
-            setCategoryArray(newCategoryArray)
-        }
+        // if (isChecked) {
+        //     setCategoryArray([...categoryArray, checkValue])
+        // }
+        // else {
+        //     const newCategoryArray = categoryArray.filter(item => item !== checkValue)
+        //     setCategoryArray(newCategoryArray)
+        // }
+
+        console.log(e.target.value)
     }
 
-    console.log(categoryArray)
+    const priceRangeHandle = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const minPrice = form.minPrice.value
+        const maxPrice = form.maxPrice.value
+        console.log(maxPrice, minPrice)
+    }
+
+    const highLowHandle = (e) => {
+        console.log(e.target.value)
+    }
+
+    const newOldHandle = (e) => {
+        const isChecked = e.target.checked
+        console.log(isChecked)
+    }
+
 
 
     return (
@@ -74,38 +93,56 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
                 <button onClick={() => setFilterOpen(false)} className={`font-inter font-semibold bg-[#E8788C] text-white rounded-sm px-3 py-1 md:hidden`}>Close</button>
             </div>
 
+
             {/* BRANDS SORTING HERE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">BRANDS</h3>
 
-                <form className="space-y-1 ml-3">
+                {/* <form className="space-y-1 ml-3">
                     {
                         brands.map((brand, indx) => <div onClick={brandHandle} key={indx} className="flex items-center gap-2">
                             <input type="checkbox" name={brand} value={brand} className="cursor-pointer w-4 h-4 " />
                             <label htmlFor={brand}>{brand}</label>
                         </div>)
                     }
-                </form>
+                </form> */}
+
+                <select onChange={brandHandle} className="space-y-1 mt-3 px-3 py-2 w-full outline-none border-2 border-[#E8788C] rounded-sm">
+                    <option value=" ">select brand</option>
+                    {
+                        brands.map((brand, indx) => <option key={indx} className="flex items-center gap-2" value={brand}>{brand}</option>)
+                    }
+                </select>
+
             </div>
+
 
             {/* CATEGORY SORTING HERE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">CATEGORY</h3>
-
-                <form className="space-y-1 ml-3">
+                {/* <form className="space-y-1 ml-3">
 
                     {
                         category.map((item, indx) => <div key={indx} onClick={categoryHandle} className="flex items-center gap-2">
-                            <input type="checkbox" name={item} value={item} className="cursor-pointer w-4 h-4 " />
+                            <input type="radio" name={item} value={item} className="cursor-pointer w-4 h-4 " />
                             <label htmlFor={item}>{item}</label>
                         </div>)
                     }
-                </form>
+                </form> */}
+
+                <select onChange={categoryHandle} className="space-y-1 mt-3 px-3 py-2 w-full outline-none border-2 border-[#E8788C] rounded-sm">
+                    <option value=" ">select category</option>
+                    {
+                        category.map((item, indx) => <option key={indx} className="flex items-center gap-2" value={item}>{item}</option>)
+                    }
+                </select>
             </div>
+
+
             {/* jodi karo vercel a deploy nia problem face koren tara module 61.(9-11) dekhte paro */}
 
             {/* PRICE RANGE SORTING HERE */}
-            <form onChange={priceRangeCheck} >
+            <form onChange={priceRangeCheck} onSubmit={priceRangeHandle}>
                 <h3 className="text-black font-bold font-raleway">PRICE RANGE</h3>
 
                 <div className="flex gap-2 items-center mt-2">
@@ -130,29 +167,33 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
             {/* PRICE LOW HIGH SORTING HERE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">SORT AS PRICE</h3>
-
-                <form className="space-y-1 ml-3">
+                {/* <form className="space-y-1 ml-3">
                     <div className="flex items-center gap-2">
-                        <input type="radio" name="brand1" value="Samsung" className="cursor-pointer w-4 h-4 " />
+                        <input type="radio" name="brand1" value="lowHigh" className="cursor-pointer w-4 h-4 " />
                         <label htmlFor="brand1">Low to High</label>
                     </div>
                     <div className="flex items-center gap-2">
-                        <input type="radio" name="brand1" value="iPhone" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">High to Low</label>
+                        <input type="radio" name="brand2" value="highLow" className="cursor-pointer w-4 h-4 " />
+                        <label htmlFor="brand2">High to Low</label>
                     </div>
-                </form>
+                </form> */}
+                <select onChange={highLowHandle} className="space-y-1 mt-3 px-3 py-2 w-full outline-none border-2 border-[#E8788C] rounded-sm">
+                    <option value=" ">select</option>
+                    <option value="highLow">High to Low</option>
+                    <option value="lowHigh">Low to High</option>
+                </select>
             </div>
 
             {/* SORTING AS DATE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">SORT AS DATE</h3>
 
-                <form className="space-y-1 ml-3">
+                <div className="space-y-1 ml-3">
                     <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="Samsung" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Newest to Oldest</label>
+                        <input onClick={newOldHandle} type="checkbox" name="hello" value="newOld" className="cursor-pointer w-4 h-4 " />
+                        <label htmlFor="hello">Newest to Oldest</label>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

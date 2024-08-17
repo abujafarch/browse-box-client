@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-const ProductSection = ({ filterOpen, setFilterOpen }) => {
+const ProductSection = ({ filterOpen, setFilterOpen, products }) => {
     return (
         <div className="">
             <h1 className="text-black text-center font-bold font-raleway mb-5">PRODUCTS YOU LOOKING FOR</h1>
