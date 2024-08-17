@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 const FilterSection = ({ filterOpen, setFilterOpen }) => {
 
     const [priceRangeOk, setPriceRangeOk] = useState(true)
+    const [brands, setBrands] = useState([])
+    const [category, setCategory] = useState([])
 
     const maxPrice = useRef()
     const minPrice = useRef()
@@ -25,6 +27,17 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
         }
     }
 
+    useEffect(() => {
+        fetch('http://localhost:5000/brand-category')
+            .then(res => res.json())
+            .then(data => {
+                setBrands(data[0].brands)
+                setCategory(data[0].category)
+            })
+    }, [])
+
+    console.log(brands, category)
+
 
     return (
         <div className={`min-w-[250px] max-w-[250px] md:h-auto h-screen md:overflow-y-hidden overflow-y-scroll md:p-0 text-black space-y-5 md:bg-white bg-[#ebebeb] p-5 md:block md:static fixed md:rounded-none md:border-none border-t rounded-md ${filterOpen ? 'right-0 top-0' : '-right-[260px] top-0'} transition-all ease-in-out duration-300`}>
@@ -38,18 +51,12 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
                 <h3 className="text-black font-bold font-raleway">BRANDS</h3>
 
                 <div className="space-y-1 ml-3">
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="Samsung" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Samsung</label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="iPhone" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">iPhone</label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="Dell" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Dell</label>
-                    </div>
+                    {
+                        brands.map((brand, indx) => <div key={indx} className="flex items-center gap-2">
+                            <input type="checkbox" name={brand} value={brand} className="cursor-pointer w-4 h-4 " />
+                            <label htmlFor={brand}>{brand}</label>
+                        </div>)
+                    }
                 </div>
             </div>
 
@@ -58,18 +65,13 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
                 <h3 className="text-black font-bold font-raleway">CATEGORY</h3>
 
                 <div className="space-y-1 ml-3">
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="Samsung" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Mobile</label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="iPhone" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Laptop</label>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <input type="checkbox" name="brand1" value="Dell" className="cursor-pointer w-4 h-4 " />
-                        <label htmlFor="brand1">Stationary</label>
-                    </div>
+
+                    {
+                        category.map((item, indx) => <div key={indx} className="flex items-center gap-2">
+                            <input type="checkbox" name={item} value={item} className="cursor-pointer w-4 h-4 " />
+                            <label htmlFor={item}>{item}</label>
+                        </div>)
+                    }
                 </div>
             </div>
             {/* jodi karo vercel a deploy nia problem face koren tara module 61.(9-11) dekhte paro */}

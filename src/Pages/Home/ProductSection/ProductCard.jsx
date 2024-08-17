@@ -2,7 +2,7 @@
 
 const ProductCard = () => {
     return (
-        <div className="text-black border rounded-md w-[220px] font-inter">
+        <div className="text-black border rounded-md font-inter">
             <img className="w-full rounded-t-md" src="https://firebasestorage.googleapis.com/v0/b/lenden-57b3b.appspot.com/o/ultarnew.webp?alt=media&token=24fbc32c-c0e3-46aa-b7a5-92ee758b13ac" />
             <div className="p-2">
                 <p className="text-xl font-semibold">Samsung s22 Ultra</p>

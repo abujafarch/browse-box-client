@@ -13,7 +13,7 @@ const ProductSection = ({ filterOpen, setFilterOpen }) => {
             </div>
 
 
-            <div className="flex gap-3 flex-wrap justify-center">
+            <div className="gap-3 grid lg:grid-cols-3 sm:grid-cols-2">
                 <ProductCard />
                 <ProductCard />
                 <ProductCard />
