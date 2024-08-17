@@ -6,6 +6,8 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
     const [priceRangeOk, setPriceRangeOk] = useState(true)
     const [brands, setBrands] = useState([])
     const [category, setCategory] = useState([])
+    const [brandArray, setBrandArray] = useState([])
+    const [categoryArray, setCategoryArray] = useState([])
 
     const maxPrice = useRef()
     const minPrice = useRef()
@@ -36,7 +38,33 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
             })
     }, [])
 
-    console.log(brands, category)
+    const brandHandle = (e) => {
+        const checkValue = e.target.value
+        const isChecked = e.target.checked
+        if (isChecked) {
+            setBrandArray([...brandArray, checkValue])
+        }
+        else {
+            const newBrandArray = brandArray.filter(brand => brand !== checkValue)
+            setBrandArray(newBrandArray)
+        }
+    }
+    console.log(brandArray)
+
+    const categoryHandle = (e) => {
+        const checkValue = e.target.value
+        const isChecked = e.target.checked
+
+        if (isChecked) {
+            setCategoryArray([...categoryArray, checkValue])
+        }
+        else {
+            const newCategoryArray = categoryArray.filter(item => item !== checkValue)
+            setCategoryArray(newCategoryArray)
+        }
+    }
+
+    console.log(categoryArray)
 
 
     return (
@@ -50,29 +78,29 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
             <div>
                 <h3 className="text-black font-bold font-raleway">BRANDS</h3>
 
-                <div className="space-y-1 ml-3">
+                <form className="space-y-1 ml-3">
                     {
-                        brands.map((brand, indx) => <div key={indx} className="flex items-center gap-2">
+                        brands.map((brand, indx) => <div onClick={brandHandle} key={indx} className="flex items-center gap-2">
                             <input type="checkbox" name={brand} value={brand} className="cursor-pointer w-4 h-4 " />
                             <label htmlFor={brand}>{brand}</label>
                         </div>)
                     }
-                </div>
+                </form>
             </div>
 
             {/* CATEGORY SORTING HERE */}
             <div>
                 <h3 className="text-black font-bold font-raleway">CATEGORY</h3>
 
-                <div className="space-y-1 ml-3">
+                <form className="space-y-1 ml-3">
 
                     {
-                        category.map((item, indx) => <div key={indx} className="flex items-center gap-2">
+                        category.map((item, indx) => <div key={indx} onClick={categoryHandle} className="flex items-center gap-2">
                             <input type="checkbox" name={item} value={item} className="cursor-pointer w-4 h-4 " />
                             <label htmlFor={item}>{item}</label>
                         </div>)
                     }
-                </div>
+                </form>
             </div>
             {/* jodi karo vercel a deploy nia problem face koren tara module 61.(9-11) dekhte paro */}
 
