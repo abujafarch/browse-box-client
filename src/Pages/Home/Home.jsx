@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import FilterSection from "./FilterSection/FilterSection";
 import { IoSearch } from "react-icons/io5";
 import ProductSection from "./ProductSection/ProductSection";
@@ -9,14 +9,24 @@ const Home = () => {
 
     const [filterOpen, setFilterOpen] = useState(false)
     const [products, setProducts] = useState([])
+    const [brandName, setBrandName] = useState(' ')
+    const [categoryName, setCategoryName] = useState(' ')
+    const [minPrice, setMinPrice] = useState(' ')
+    const [maxPrice, setMaxPrice] = useState(' ')
+    const [highLowPrice, setHighLowPrice] = useState(' ')
+    const [newest, setNewest] = useState("false")
+
+    console.log(brandName, categoryName, minPrice, maxPrice, highLowPrice, newest)
+
 
     useEffect(() => {
-        fetch('http://localhost:5000/all-products')
+        fetch(`https://browse-box-server.vercel.app/all-products?brandName=${brandName}&categoryName=${categoryName}&minPrice=${minPrice}&maxPrice=${maxPrice}&highLowPrice=${highLowPrice}&newest=${newest}`)
+
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
             })
-    }, [])
+    }, [brandName, categoryName, minPrice, maxPrice, highLowPrice, newest])
 
 
 
@@ -29,7 +39,18 @@ const Home = () => {
             </div>
 
             <div className="flex gap-5">
-                <FilterSection setFilterOpen={setFilterOpen} filterOpen={filterOpen} />
+                <FilterSection
+                    setFilterOpen={setFilterOpen}
+                    filterOpen={filterOpen}
+                    setBrandName={setBrandName}
+                    setCategoryName={setCategoryName}
+                    setMinPrice={setMinPrice}
+                    setMaxPrice={setMaxPrice}
+                    setNewest={setNewest}
+                    setHighLowPrice={setHighLowPrice}
+                />
+
+
                 <ProductSection setFilterOpen={setFilterOpen} filterOpen={filterOpen} products={products} />
             </div>
         </div>

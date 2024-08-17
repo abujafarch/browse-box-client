@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 
-const FilterSection = ({ filterOpen, setFilterOpen }) => {
+const FilterSection = ({ filterOpen, setFilterOpen, setBrandName, setCategoryName, setMinPrice, setMaxPrice, setNewest, setHighLowPrice }) => {
 
     const [priceRangeOk, setPriceRangeOk] = useState(true)
     const [brands, setBrands] = useState([])
@@ -11,15 +11,15 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
 
     const maxPrice = useRef()
     const minPrice = useRef()
-    console.log(priceRangeOk)
+    // console.log(priceRangeOk)
 
     const priceRangeCheck = (e) => {
         e.preventDefault()
         const maxPriceInt = parseInt(maxPrice.current.value)
         const minPriceInt = parseInt(minPrice.current.value)
 
-        console.log(minPriceInt, maxPriceInt)
-        console.log(priceRangeOk)
+        // console.log(minPriceInt, maxPriceInt)
+        // console.log(priceRangeOk)
 
         if (maxPriceInt <= minPriceInt || !maxPriceInt || !minPriceInt) {
             setPriceRangeOk(false)
@@ -30,7 +30,7 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/brand-category')
+        fetch('https://browse-box-server.vercel.app/brand-category')
             .then(res => res.json())
             .then(data => {
                 setBrands(data[0].brands)
@@ -48,8 +48,8 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
         //     const newBrandArray = brandArray.filter(brand => brand !== checkValue)
         //     setBrandArray(newBrandArray)
         // }
-
         console.log(e.target.value)
+        setBrandName(e.target.value)
     }
 
     const categoryHandle = (e) => {
@@ -63,7 +63,7 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
         //     const newCategoryArray = categoryArray.filter(item => item !== checkValue)
         //     setCategoryArray(newCategoryArray)
         // }
-
+        setCategoryName(e.target.value)
         console.log(e.target.value)
     }
 
@@ -72,15 +72,24 @@ const FilterSection = ({ filterOpen, setFilterOpen }) => {
         const form = e.target
         const minPrice = form.minPrice.value
         const maxPrice = form.maxPrice.value
+        setMinPrice(minPrice)
+        setMaxPrice(maxPrice)
         console.log(maxPrice, minPrice)
     }
 
     const highLowHandle = (e) => {
         console.log(e.target.value)
+        setHighLowPrice(e.target.value)
     }
 
     const newOldHandle = (e) => {
         const isChecked = e.target.checked
+        if (isChecked) {
+            setNewest("true")
+        }
+        else {
+            setNewest("false")
+        }
         console.log(isChecked)
     }
 
