@@ -30,7 +30,7 @@ const FilterSection = ({ filterOpen, setFilterOpen, setBrandName, setCategoryNam
     }
 
     useEffect(() => {
-        fetch('http://localhost:5000/brand-category')
+        fetch('https://browse-box-server.vercel.app/brand-category')
             .then(res => res.json())
             .then(data => {
                 setBrands(data[0].brands)

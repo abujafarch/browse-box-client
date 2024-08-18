@@ -20,7 +20,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/all-products?brandName=${brandName}&categoryName=${categoryName}&minPrice=${minPrice}&maxPrice=${maxPrice}&highLowPrice=${highLowPrice}&newest=${newest}`)
+        fetch(`https://browse-box-server.vercel.app/all-products?brandName=${brandName}&categoryName=${categoryName}&minPrice=${minPrice}&maxPrice=${maxPrice}&highLowPrice=${highLowPrice}&newest=${newest}`)
 
             .then(res => res.json())
             .then(data => {
@@ -33,7 +33,7 @@ const Home = () => {
         e.preventDefault()
         console.log(e.target.search.value)
         const search = e.target.search.value
-        fetch(`http://localhost:5000/searched-products?search=${search}`)
+        fetch(`https://browse-box-server.vercel.app/searched-products?search=${search}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data)
